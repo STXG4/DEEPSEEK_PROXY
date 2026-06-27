@@ -10,14 +10,6 @@
 
 import { getDeepSeekHeaders, invalidateHeaderCache } from './playwright.ts';
 
-// Connection pool for DeepSeek API calls (Node 20+ has undici bundled)
-// @ts-ignore — undici is bundled in Node 20+ but lacks type declarations
-import { Agent } from 'undici';
-const httpAgent = new Agent({
-  keepAliveTimeout: 30_000,
-  connections: 10,
-});
-
 // In-memory state to track the last message ID per session to avoid overwriting
 // Use globalThis to ensure it survives module reloads in some test environments
 const sessionStates: Record<string, number | null> = (globalThis as any)._sessionStates || {};
@@ -90,8 +82,6 @@ export async function createDeepSeekStream(
       'x-client-version': '2.0.0'
     },
     body: JSON.stringify(payload),
-    // @ts-ignore — Node 20+ undici dispatcher option
-    dispatcher: httpAgent,
   });
 
   if (!response.ok || !response.body) {
