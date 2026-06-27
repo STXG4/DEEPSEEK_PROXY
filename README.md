@@ -66,7 +66,7 @@ graph TD
 
 ```bash
 # Clonar repositório
-git clone https://github.com/pedrofariasx/deepsproxy.git
+git clone https://github.com/STXG4/DEEPSEEK_PROXY.git
 cd deepsproxy
 
 # Instalar dependências
